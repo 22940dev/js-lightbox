@@ -39,14 +39,14 @@ function Lightbox(lightboxElement) {
       event.target == closeButton) {
         scope.closeLightbox();
     }
-  }
+  };
   let onClose = null;
   let onBeforeClose = null;
   let setOptions = null;
 
   this.isOpen = function() {
     return lightboxElement.style.display != "none";
-  }
+  };
 
   this.closeLightbox = function(force = false) {
     if (preventClose) {
@@ -61,11 +61,13 @@ function Lightbox(lightboxElement) {
       setTimeout(function() {
         // Close the Modal
         lightboxElement.style.display = "none";
-        onClose ? onClose() : null;
+        if (onClose) {
+          onClose();
+        }
       }, 200);
       window.removeEventListener('keydown', closeOnEsc, false);
     }
-  }
+  };
 
   this.openLightbox = function(options) {
     let alreadyOpen = scope.isOpen();
@@ -106,7 +108,7 @@ function Lightbox(lightboxElement) {
         options.closeOnEsc = true;
       }
     }
-  }
+  };
 
   function closeOnEsc(event) {
     // Escape Key
@@ -123,7 +125,7 @@ function Lightbox(lightboxElement) {
       captionContainer.innerHTML = "";
       captionContainer.appendChild(html);
     }
-  }
+  };
 
   // Full reset of lightbox
   this.clearLightbox = function() {
@@ -134,27 +136,27 @@ function Lightbox(lightboxElement) {
     onBeforeClose = null;
     preventClose = false;
     setOptions = false;
-  }
+  };
 
   // Set the background transparancy in CSS
   this.setOpacity = function(opacity) {
     if (backgroundElt) {
       backgroundElt.style.opacity = opacity;
     }
-  }
+  };
 
   this.hideCloseButton = function() {
     closeButton.style.display = 'none';
-  }
+  };
 
   this.showCloseButton = function() {
     closeButton.style.display = 'block';
-  }
+  };
 
   // Toggles a boolean to prevent the lightbox from being closed by the user
   this.preventClose = function(bool = true) {
     preventClose = bool;
-  }
+  };
 
   // Enables vertical alignment of objects in the lightbox
   this.verticalAlign = function() {
@@ -162,7 +164,7 @@ function Lightbox(lightboxElement) {
     contentElement.style.top = '50%';
     contentElement.style.left = '50%';
     contentElement.style.transform = 'translate(-50%, -50%)';
-  }
+  };
 
   // Disables vertical alignment of objects in the lightbox
   this.noVerticalAlign = function() {
@@ -170,7 +172,7 @@ function Lightbox(lightboxElement) {
     contentElement.style.top = null;
     contentElement.style.left = null;
     contentElement.style.transform = null;
-  }
+  };
 
   this.clearLightbox();
 }
